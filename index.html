@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Documentation Page</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+  <!-- start nav -->
+  <nav id="navbar">
+    <header><h1>Mapbox Maps SDK for React Native</h1></header>
+    <a class="nav-link" href="#Getting_started">Getting started</a>
+    <a class="nav-link" href="#Initialize_a_map">Initialize a map</a>
+    <a class="nav-link" href="#Add_an_annotation">Add an annotation</a>
+    <a class="nav-link" href="#Display_the_user’s_location">Display the user’s location</a>
+    <a class="nav-link" href="#Finished_product">Finished product</a>
+  </nav>
+  <!-- end nav -->
+
+  <!-- start main -->
+  <main id="main-doc">
+    <section id="Getting_started" class="main-section">
+      <header><h2>Getting started</h2></header>
+      <p>The <strong>Mapbox Maps SDK for React Native</strong> is a cross platform solution that provides reusable JavaScript components for building mapping and location into Android and iOS apps. This guide will walk you through the basics of working with the Maps SDK for React Native, including how to customize your map, add annotations with callouts, and display a user’s location on a map.</p>
+      <p>Before you start building your app, you will need to set up React Native, some Android and iOS development tools, a Mapbox account, and the Mapbox Maps SDK for React Native.</p>
+      <h3>React Native</h3>
+      <p>There are several resources you will need to get React Native up and running if you have not worked with it before. We recommend referring to the <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank">React Native Getting started guide</a> using the <em>Building Projects with Native Code</em> option. The demo project in this guide was created using <code>react-native init</code>, a command from the React Native CLI.</p>
+      <h3>Android and iOS tools</h3>
+      <p>To run the application on Android or iOS, you’ll need a few platform-specific resources. For Android you’ll need:</p>
+      <ul>
+        <li><strong>Android Studio</strong>. You can download <a href="http://developer.android.com/sdk/index.html" target="_blank">Android Studio</a> for free from Google. Be sure to set up Android Studio following the instructions in the <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank">React Native Getting started guide</a>.</li>
+        <li><strong>Android device</strong>. You will need either a physical Android device or an <a href="https://developer.android.com/studio/run/emulator.html" target="_blank">emulated Android device</a> to preview your application.</li>
+      </ul>
+      <p>For iOS you’ll need:</p>
+      <ul>
+        <li><strong>Xcode (Mac only)</strong>. You can download Xcode for free from the Apple App store. Be sure to set up Xcode following the instructions in the <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank">React Native Getting started guide</a>.</li>
+        <li><strong>iOS device (Mac only)</strong>. You will need either a physical iOS device or Simulator (an application that comes with Xcode) to preview your application.</li>
+      </ul>
+      <h3>Mapbox</h3>
+      <p>You’ll also need these Mapbox-specific resources before you start developing:</p>
+      <ul>
+        <li><strong>A Mapbox account and access token</strong>. Sign up for an account at <a href="https://www.mapbox.com/signup/" target="_blank">mapbox.com/signup</a>. You can find your access tokens on your <a href="https://www.mapbox.com/account/" target="_blank">Account page</a>.</li>
+        <li><strong>Mapbox Maps SDK for React Native</strong>. Install the Maps SDK for React Native using these <a href="https://github.com/mapbox/react-native-mapbox-gl#installation" target="_blank">installation instructions</a>.</li>
+        <li><strong>Install for Android and iOS</strong>. After installing the SDK generally, you’ll also need to install for each platform using these two guides:
+          <ul>
+            <li><a href="https://github.com/mapbox/react-native-mapbox-gl/blob/master/android/install.md" target="_blank">Installation instructions for Android</a></li>
+            <li><a href="https://github.com/mapbox/react-native-mapbox-gl/blob/master/ios/install.md" target="_blank">Installation instructions for iOS</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+    <section id="Initialize_a_map" class="main-section">
+      <header><h2>Initialize a map</h2></header>
+      <p>Once you’ve set up your development environment, created a new React Native project, and installed the Mapbox Maps SDK for React Native, you’re ready to initialize a map in your App.js file.</p>
+      <p>First, you’ll import the components that you will need. This includes components from React, React Native, and Mapbox. To display a map you’ll need a Mapbox <a href="https://www.mapbox.com/help/define-access-token/" target="_blank">access token</a>. Mapbox uses access tokens to associate requests to API resources with your account. As soon as you have imported <code>Mapbox</code>, you should set your Mapbox access token using <code>Mapbox.setAccessToken()</code>.</p>
+      <p>Then, use the <code>Mapbox.MapView</code> component to initialize your map. The <code>MapView</code> component will add a map to the view, and you can add props to specify some parameters for the map including the map style, zoom level, and center of the map.</p>
+      <p>Here’s the complete code to display a map:</p>
+      <pre><code>
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import Mapbox from '@mapbox/react-native-mapbox-gl';
+
+Mapbox.setAccessToken('&lt;your access token here&gt;');
+
+export default class App extends Component<{}> {
+  render() {
+    return (
+      &lt;View style={styles.container}&gt;
+        &lt;Mapbox.MapView
+            styleURL={Mapbox.StyleURL.Street}
+            zoomLevel={15}
+            centerCoordinate={[11.256, 43.770]}
+            style={styles.container}&gt;
+        &lt;/Mapbox.MapView&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+      </code></pre>
+      <p>Use either <code>react-native start-android</code> or <code>react-native start-ios</code> to run your application on Android or iOS. You will see a map centered on Florence, Italy.</p>
+      <h3>Change the map style</h3>
+      <p>In the code above, the line <code>styleURL={Mapbox.StyleURL.Street}</code> determines the style of the map. The Maps SDK for React Native provides a set of convenience methods that will return the style URLs of our template styles including:</p>
+      <ul>
+        <li><code>Mapbox.StyleURL.Street</code></li>
+        <li><code>Mapbox.StyleURL.Dark</code></li>
+        <li><code>Mapbox.StyleURL.Light</code></li>
+      </ul>
+      <p>You can also set <code>styleURL</code> to a custom <a href="https://www.mapbox.com/help/define-style-url/" target="_blank">style URL</a> from your Mapbox account including one of our <a href="https://www.mapbox.com/designer-maps/" target="_blank">designer styles</a> or your own completely custom style made with <a href="https://www.mapbox.com/help/studio-manual/" target="_blank">Mapbox Studio</a>.</p>
+      <p>Replace the current code defining the <code>styleURL</code> with the line below to change the map style from Mapbox Streets to our Mapbox Dark style.</p>
+      <pre><code>styleURL={Mapbox.StyleURL.Dark}</code></pre>
+      <p>Run your application again, and you will see a dark colored map centered on Florence, Italy.</p>
+    </section>
+    <section id="Add_an_annotation" class="main-section">
+      <header><h2>Add an annotation</h2></header>
+      <p>Next, you’ll add a single annotation to the map and display a callout when the annotation is tapped.</p>
+      <p>Within <code>export default class App extends Component<{}> { }</code>, create a new function called <code>renderAnnotations ()</code>. This function will create a point annotation, specify its location, pull in style properties for the annotation, and determine the contents of a callout.</p>
+      <p>Add two new items to the StyleSheet: <code>annotationContainer</code> and <code>annotationFill</code>. Add properties to create an orange circle with a white border. You’ll use these to style <code>&lt;View style={styles.annotationContainer}&gt;</code> and <code>&lt;View style={styles.annotationFill} /&gt;</code></p>
+      <p>Finally, call the <code>renderAnnotation()</code> function when the map is initialized using <code>{this.renderAnnotations()}</code>.</p>
+      <p>Here’s the complete code to add an annotation to the map:</p>
+      <pre><code>
+        import React, { Component } from 'react';
+        import { StyleSheet, View } from 'react-native';
+        import Mapbox from '@mapbox/react-native-mapbox-gl';
+
+        Mapbox.setAccessToken('&lt;your access token here>');
+
+        export default class App extends Component<{}> {
+
+          renderAnnotations () {
+            return (
+              &lt;Mapbox.PointAnnotation
+                key='pointAnnotation'
+                id='pointAnnotation'
+                coordinate={[11.254, 43.772]}&gt;
+
+                &lt;View style={styles.annotationContainer}&gt;
+                  &lt;View style={styles.annotationFill} /&gt;
+                &lt;/View&gt;
+                &lt;Mapbox.Callout title='Look! An annotation!' /&gt;
+              &lt;/Mapbox.PointAnnotation&gt;
+            )
+          }
+
+          render() {
+            return (
+              &lt;View style={styles.container}&gt;
+                &lt;Mapbox.MapView
+                    styleURL={Mapbox.StyleURL.Dark}
+                    zoomLevel={15}
+                    centerCoordinate={[11.256, 43.770]}
+                    style={styles.container}&gt;
+                    {this.renderAnnotations()}
+                &lt;/Mapbox.MapView&gt;
+              &lt;/View&gt;
+            );
+          }}
+
+        const styles = StyleSheet.create({
+          container: {
+            flex: 1,
+          },
+          annotationContainer: {
+            width: 30,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+            borderRadius: 15,
+          },
+          annotationFill: {
+            width: 30,
+            height: 30,
+            borderRadius: 15,
+            backgroundColor: 'orange',
+            transform: [{ scale: 0.6 }],
+          }
+        });
+      </code></pre>
+      <p>Run your application, and you will see an orange annotation on the map. If you tap on the annotation, a callout will appear.</p>
+    </section>
+    <section id="Display_the_user’s_location" class="main-section">
+      <header><h2>Display the user’s location</h2></header>
+      <p>Finally, you’ll display the user’s location on the map. Add another prop to the <code>Mapbox.MapView</code> component: <code>showUserLocation={true}</code>. This will add a blue circle at the user’s location when the map loads.</p>
+      <p>Here’s the complete code to track and display a user location:</p>
+      <pre><code>
+        import React, { Component } from 'react';
+        import { StyleSheet, View } from 'react-native';
+        import Mapbox from '@mapbox/react-native-mapbox-gl';
+
+        Mapbox.setAccessToken('<your access token here>');
+
+        export default class App extends Component<{}> {
+
+          renderAnnotations () {
+            return (
+              &lt;Mapbox.PointAnnotation
+                key='pointAnnotation'
+                id='pointAnnotation'
+                coordinate={[11.254, 43.772]}&gt;
+
+                &lt;View style={styles.annotationContainer}&gt;
+                  &lt;View style={styles.annotationFill} /&gt;
+                &lt;/View&gt;
+                &lt;Mapbox.Callout title='Look! An annotation!' /&gt;
+              &lt;/Mapbox.PointAnnotation&gt;
+            )
+          }
+
+          render() {
+            return (
+              &lt;View style={styles.container}&gt;
+                &lt;Mapbox.MapView
+                    styleURL={Mapbox.StyleURL.Dark}
+                    zoomLevel={15}
+                    centerCoordinate={[11.256, 43.770]}
+                    style={styles.container}
+                    showUserLocation={true}&gt;
+                    {this.renderAnnotations()}
+                &lt;/Mapbox.MapView&gt;
+              &lt;/View&gt;
+            );
+          }
+        }
+
+        const styles = StyleSheet.create({
+          container: {
+            flex: 1,
+          },
+          annotationContainer: {
+            width: 30,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+            borderRadius: 15,
+          },
+          annotationFill: {
+            width: 30,
+            height: 30,
+            borderRadius: 15,
+            backgroundColor: 'orange',
+            transform: [{ scale: 0.6 }],
+          },
+        });
+      </code></pre>
+      <p>Run your application on Android or iOS. You’ll be presented with a dialog box asking for permission to use Location Services. Click <strong>Allow</strong>.</p>
+      <p>You won’t see your location on the map until you set a mock user location.</p>
+      <p>If you are using Simulator for iOS, go to Simulator’s menu bar and select <strong>Debug ‣ Location ‣ Custom Location</strong>. Enter 43.770 for latitude and 11.256 for longitude.</p>
+      <p>If you are using an Android virtual device, click the three dots, representing Extended controls, on the toolbar in the emulator. In the Location section, enter <code>11.256</code> for longitude, enter <code>43.770</code> for latitude, and click <strong>Send</strong>.</p>
+      <p>You will see blue dot displaying the user’s location.</p>
+    </section>
+    <section id="Finished_product" class="main-section">
+      <header><h2>Finished product</h2></header>
+      <p>You just built a small app with the Mapbox Maps SDK for React Native! You added a Mapbox map to a mobile application, changed the map style, placed an annotation on your map, and displayed the user’s location on it.</p>
+      <p>This documentation is taken from the <a href="https://www.mapbox.com/help/first-steps-react-native-sdk/" target="_blank">Mapbox</a> website.</p>
+    </section>
+  </main>
+  <!-- end main -->
+
+  <!-- start footer -->
+  <footer id="footer">
+    <p>created by <a href="http://puntahamra.com" target="_blank"><span id="punta"></span></a> <a href="http://puntahamra.com" target="_blank">puntahamra</a></p>
+  </footer>
+  <!-- end footer -->
+
+  <!-- freeCodeCamp CDN
+  <script type="text/javascript" src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script> -->
+
+</body>
+
+</html>
