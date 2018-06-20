@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Technical Documentation Page</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -108,63 +109,63 @@ const styles = StyleSheet.create({
       <p>Finally, call the <code>renderAnnotation()</code> function when the map is initialized using <code>{this.renderAnnotations()}</code>.</p>
       <p>Here’s the complete code to add an annotation to the map:</p>
       <pre><code>
-        import React, { Component } from 'react';
-        import { StyleSheet, View } from 'react-native';
-        import Mapbox from '@mapbox/react-native-mapbox-gl';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import Mapbox from '@mapbox/react-native-mapbox-gl';
 
-        Mapbox.setAccessToken('&lt;your access token here>');
+Mapbox.setAccessToken('&lt;your access token here>');
 
-        export default class App extends Component<{}> {
+export default class App extends Component<{}> {
 
-          renderAnnotations () {
-            return (
-              &lt;Mapbox.PointAnnotation
-                key='pointAnnotation'
-                id='pointAnnotation'
-                coordinate={[11.254, 43.772]}&gt;
+  renderAnnotations () {
+    return (
+      &lt;Mapbox.PointAnnotation
+        key='pointAnnotation'
+        id='pointAnnotation'
+        coordinate={[11.254, 43.772]}&gt;
 
-                &lt;View style={styles.annotationContainer}&gt;
-                  &lt;View style={styles.annotationFill} /&gt;
-                &lt;/View&gt;
-                &lt;Mapbox.Callout title='Look! An annotation!' /&gt;
-              &lt;/Mapbox.PointAnnotation&gt;
-            )
-          }
+        &lt;View style={styles.annotationContainer}&gt;
+          &lt;View style={styles.annotationFill} /&gt;
+        &lt;/View&gt;
+        &lt;Mapbox.Callout title='Look! An annotation!' /&gt;
+      &lt;/Mapbox.PointAnnotation&gt;
+    )
+  }
 
-          render() {
-            return (
-              &lt;View style={styles.container}&gt;
-                &lt;Mapbox.MapView
-                    styleURL={Mapbox.StyleURL.Dark}
-                    zoomLevel={15}
-                    centerCoordinate={[11.256, 43.770]}
-                    style={styles.container}&gt;
-                    {this.renderAnnotations()}
-                &lt;/Mapbox.MapView&gt;
-              &lt;/View&gt;
-            );
-          }}
+  render() {
+    return (
+      &lt;View style={styles.container}&gt;
+        &lt;Mapbox.MapView
+            styleURL={Mapbox.StyleURL.Dark}
+            zoomLevel={15}
+            centerCoordinate={[11.256, 43.770]}
+            style={styles.container}&gt;
+            {this.renderAnnotations()}
+        &lt;/Mapbox.MapView&gt;
+      &lt;/View&gt;
+    );
+  }}
 
-        const styles = StyleSheet.create({
-          container: {
-            flex: 1,
-          },
-          annotationContainer: {
-            width: 30,
-            height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-            borderRadius: 15,
-          },
-          annotationFill: {
-            width: 30,
-            height: 30,
-            borderRadius: 15,
-            backgroundColor: 'orange',
-            transform: [{ scale: 0.6 }],
-          }
-        });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  annotationContainer: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 15,
+  },
+  annotationFill: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'orange',
+    transform: [{ scale: 0.6 }],
+  }
+});
       </code></pre>
       <p>Run your application, and you will see an orange annotation on the map. If you tap on the annotation, a callout will appear.</p>
     </section>
@@ -173,65 +174,65 @@ const styles = StyleSheet.create({
       <p>Finally, you’ll display the user’s location on the map. Add another prop to the <code>Mapbox.MapView</code> component: <code>showUserLocation={true}</code>. This will add a blue circle at the user’s location when the map loads.</p>
       <p>Here’s the complete code to track and display a user location:</p>
       <pre><code>
-        import React, { Component } from 'react';
-        import { StyleSheet, View } from 'react-native';
-        import Mapbox from '@mapbox/react-native-mapbox-gl';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import Mapbox from '@mapbox/react-native-mapbox-gl';
 
-        Mapbox.setAccessToken('<your access token here>');
+Mapbox.setAccessToken('<your access token here>');
 
-        export default class App extends Component<{}> {
+export default class App extends Component<{}> {
 
-          renderAnnotations () {
-            return (
-              &lt;Mapbox.PointAnnotation
-                key='pointAnnotation'
-                id='pointAnnotation'
-                coordinate={[11.254, 43.772]}&gt;
+  renderAnnotations () {
+    return (
+      &lt;Mapbox.PointAnnotation
+        key='pointAnnotation'
+        id='pointAnnotation'
+        coordinate={[11.254, 43.772]}&gt;
 
-                &lt;View style={styles.annotationContainer}&gt;
-                  &lt;View style={styles.annotationFill} /&gt;
-                &lt;/View&gt;
-                &lt;Mapbox.Callout title='Look! An annotation!' /&gt;
-              &lt;/Mapbox.PointAnnotation&gt;
-            )
-          }
+        &lt;View style={styles.annotationContainer}&gt;
+          &lt;View style={styles.annotationFill} /&gt;
+        &lt;/View&gt;
+        &lt;Mapbox.Callout title='Look! An annotation!' /&gt;
+      &lt;/Mapbox.PointAnnotation&gt;
+    )
+  }
 
-          render() {
-            return (
-              &lt;View style={styles.container}&gt;
-                &lt;Mapbox.MapView
-                    styleURL={Mapbox.StyleURL.Dark}
-                    zoomLevel={15}
-                    centerCoordinate={[11.256, 43.770]}
-                    style={styles.container}
-                    showUserLocation={true}&gt;
-                    {this.renderAnnotations()}
-                &lt;/Mapbox.MapView&gt;
-              &lt;/View&gt;
-            );
-          }
-        }
+  render() {
+    return (
+      &lt;View style={styles.container}&gt;
+        &lt;Mapbox.MapView
+            styleURL={Mapbox.StyleURL.Dark}
+            zoomLevel={15}
+            centerCoordinate={[11.256, 43.770]}
+            style={styles.container}
+            showUserLocation={true}&gt;
+            {this.renderAnnotations()}
+        &lt;/Mapbox.MapView&gt;
+      &lt;/View&gt;
+    );
+  }
+}
 
-        const styles = StyleSheet.create({
-          container: {
-            flex: 1,
-          },
-          annotationContainer: {
-            width: 30,
-            height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-            borderRadius: 15,
-          },
-          annotationFill: {
-            width: 30,
-            height: 30,
-            borderRadius: 15,
-            backgroundColor: 'orange',
-            transform: [{ scale: 0.6 }],
-          },
-        });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  annotationContainer: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 15,
+  },
+  annotationFill: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'orange',
+    transform: [{ scale: 0.6 }],
+  },
+});
       </code></pre>
       <p>Run your application on Android or iOS. You’ll be presented with a dialog box asking for permission to use Location Services. Click <strong>Allow</strong>.</p>
       <p>You won’t see your location on the map until you set a mock user location.</p>
@@ -244,8 +245,10 @@ const styles = StyleSheet.create({
       <p>You just built a small app with the Mapbox Maps SDK for React Native! You added a Mapbox map to a mobile application, changed the map style, placed an annotation on your map, and displayed the user’s location on it.</p>
       <p>This documentation is taken from the <a href="https://www.mapbox.com/help/first-steps-react-native-sdk/" target="_blank">Mapbox</a> website.</p>
     </section>
+    <hr class = "inset">
   </main>
   <!-- end main -->
+
 
   <!-- start footer -->
   <footer id="footer">
@@ -253,8 +256,8 @@ const styles = StyleSheet.create({
   </footer>
   <!-- end footer -->
 
-  <!-- freeCodeCamp CDN
-  <script type="text/javascript" src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script> -->
+  <!-- freeCodeCamp CDN -->
+  <script type="text/javascript" src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
 
 </body>
 
